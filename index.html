@@ -24,7 +24,7 @@
     <div class="container">
       <div class="badge">v1.0.0 — open source</div>
       <h1 class="hero-title">Valify<span>.js</span></h1>
-      <p class="hero-subtitle">A zero-dependency, ultra-lightweight JavaScript validation library for everything. Dates, times, CNIC, passwords, and forms—all in one file.</p>
+      <p class="hero-subtitle">A zero-dependency, ultra-lightweight JavaScript validation library with built-in auto-formatters. Dates, times, CNIC, passwords, and forms—all in one file.</p>
       <div class="hero-actions">
         <a href="#usage" class="btn btn-primary">Get Started</a>
         <a href="https://github.com/sahirpunjwani/Valifyjs" class="btn btn-secondary" target="_blank">View on GitHub</a>
@@ -48,8 +48,11 @@
 
 &lt;!-- access globally via window.Valify --&gt;
 &lt;script&gt;
-  const isValid = Valify.cnic("42101-1234567-1");
-  console.log(isValid); // true
+  // Validations
+  Valify.cnic("42101-1234567-1"); // returns true
+  
+  // Formatters
+  Valify.format.cnic("4210112345671"); // returns "42101-1234567-1"
 &lt;/script&gt;</code></pre>
           </div>
         </div>
@@ -80,28 +83,26 @@
     <div class="container">
       <div class="section-header">
         <p class="section-tagline">What's Inside</p>
-        <h2>Everything you need</h2>
-        <p class="section-desc">No dependencies. No bloat. Just a single clean JS file equipped with robust validation parameters.</p>
+        <h2>Interactive Playground</h2>
+        <p class="section-desc">Type directly into the fields below. The library will auto-format your string layout and validate it in real time (Green = Valid, Red = Invalid).</p>
       </div>
 
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon">🇵🇰</div>
-          <h3>CNIC Validation</h3>
-          <p>Pattern validation for Pakistani Identity Cards (5 digits, hyphen, 7 digits, hyphen, 1 digit) built using fast regular expressions.</p>
+          <h3>CNIC Validation & Format</h3>
+          <p>Pattern validation for Pakistani Identity Cards. Automatically introduces hyphen boundaries dynamically as you enter values.</p>
           <div class="live-demo">
-            <input type="text" id="cnicIn" placeholder="42101-1234567-1">
-            <button onclick="runTest('cnic', 'cnicIn')">Test</button>
+            <input type="text" id="cnicIn" placeholder="42101-1234567-1" oninput="this.value = Valify.format.cnic(this.value); runTest('cnic', 'cnicIn')">
           </div>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">📞</div>
           <h3>Phone Numbers</h3>
-          <p>Flexible evaluation supporting regional spacings, dash separators, bracket structures, and standardized global E.164 (+123...) formats.</p>
+          <p>Flexible evaluation supporting formats. Re-structures your local code input pattern into a standardized +92 format structure instantly.</p>
           <div class="live-demo">
-            <input type="text" id="phoneIn" placeholder="+92 300 1234567">
-            <button onclick="runTest('phone', 'phoneIn')">Test</button>
+            <input type="text" id="phoneIn" placeholder="03001234567" oninput="this.value = Valify.format.phone(this.value); runTest('phone', 'phoneIn')">
           </div>
         </div>
 
@@ -110,9 +111,8 @@
           <h3>Date Range & Picker</h3>
           <p>Evaluate form pickers down to the chronological timeline. Ensures your reservation start date starts before an ending date.</p>
           <div class="live-demo picker-demo">
-            <input type="date" id="startPick">
-            <input type="date" id="endPick">
-            <button onclick="runRangeTest()">Test</button>
+            <input type="date" id="startPick" onchange="runRangeTest()">
+            <input type="date" id="endPick" onchange="runRangeTest()">
           </div>
         </div>
 
@@ -121,18 +121,16 @@
           <h3>Strong Passwords</h3>
           <p>Enforce elite validation policies requiring at least 8 elements comprising uppercase letters, lowercase, numbers, and symbols.</p>
           <div class="live-demo">
-            <input type="password" id="passIn" placeholder="••••••••">
-            <button onclick="runTest('strongPassword', 'passIn')">Test</button>
+            <input type="password" id="passIn" placeholder="••••••••" oninput="runTest('strongPassword', 'passIn')">
           </div>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">💳</div>
           <h3>Credit Cards</h3>
-          <p>Native mathematical parsing powered by the Luhn Algorithm checksum to authenticate card numbers before hitting gateway APIs.</p>
+          <p>Native mathematical parsing powered by the Luhn Algorithm checksum. Spaces out input digits into neat chunks of four elements.</p>
           <div class="live-demo">
-            <input type="text" id="cardIn" placeholder="4532 7100 1234 5678">
-            <button onclick="runTest('creditCard', 'cardIn')">Test</button>
+            <input type="text" id="cardIn" placeholder="4532 7100 1234 5678" oninput="this.value = Valify.format.creditCard(this.value); runTest('creditCard', 'cardIn')">
           </div>
         </div>
 
@@ -141,8 +139,7 @@
           <h3>Time Configurations</h3>
           <p>Validates strict 24-hour schedules (HH:MM / HH:MM:SS) alongside standard 12-hour AM/PM string formats seamlessly.</p>
           <div class="live-demo">
-            <input type="text" id="timeIn" placeholder="23:45 / 11:15 PM">
-            <button onclick="runTimeTest()">Test</button>
+            <input type="text" id="timeIn" placeholder="23:45 / 11:15 PM" oninput="runTimeTest()">
           </div>
         </div>
       </div>
@@ -312,6 +309,24 @@ if (Valify.creditCard("49927398716")) {
               <td>Evaluates strict mathematical legitimacy via Luhn algorithms.</td>
               <td>boolean</td>
             </tr>
+            <tr style="border-top: 2px solid var(--border);">
+              <td><code>.format.cnic(val)</code></td>
+              <td><code>value</code> (string)</td>
+              <td>Auto-formats string into structured 55555-5555555-5 blocks.</td>
+              <td>string</td>
+            </tr>
+            <tr>
+              <td><code>.format.phone(val)</code></td>
+              <td><code>value</code> (string)</td>
+              <td>Auto-formats structural pak numbers to standardized +92 code spans.</td>
+              <td>string</td>
+            </tr>
+            <tr>
+              <td><code>.format.creditCard(val)</code></td>
+              <td><code>value</code> (string)</td>
+              <td>Splits numeric strings automatically in groups of 4 values.</td>
+              <td>string</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -330,6 +345,11 @@ if (Valify.creditCard("49927398716")) {
 
   <script>
     function showFeedback(inputElement, isValid) {
+      if(inputElement.value.trim() === "") {
+        inputElement.style.borderColor = "var(--border)";
+        inputElement.style.boxShadow = "none";
+        return;
+      }
       if(isValid) {
         inputElement.style.borderColor = "#10b981";
         inputElement.style.boxShadow = "0 0 0 3px rgba(16, 185, 129, 0.15)";
