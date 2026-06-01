@@ -68,10 +68,10 @@ const Valify = {
   },
 
   // ==========================================
-  // 2. AUTO-FORMATTERS (Transforms raw strings instantly)
+  // 2. AUTO-FORMATTERS (Strict Maximum Length Caps)
   // ==========================================
   format: {
-    // Converts input into 42101-1234567-1 format dynamically
+    // Limits and formats to exactly 13 digits (15 characters total: XXXXX-XXXXXXX-X)
     cnic: (value) => {
       let v = String(value).replace(/\D/g, '').substring(0, 13);
       if (v.length > 5 && v.length <= 12) {
@@ -82,18 +82,31 @@ const Valify = {
       return v;
     },
 
-    // Forces Pakistani phone number into standard block spacings +92 3XX XXXXXXX
+    // Strict formatting for Pakistani phone numbers, capped at 11 or 12 digits (+92 XXX XXXXXXX)
     phone: (value) => {
-      let v = String(value);
-      const isPak = v.startsWith('+92') || v.startsWith('92') || v.startsWith('03');
+      let v = String(value).trim();
+      if (!v) return '';
+
+      // Strip everything except numbers and '+' sign
+      v = v.replace(/[^\d+]/g, '');
+
+      // Check if it's attempting a Pakistani format
+      const isPak = v.startsWith('+92') || v.startsWith('92') || v.startsWith('03') || v.startsWith('3');
       
-      if (!isPak) return v; // Leave international numbers raw
+      if (!isPak) {
+        // Fallback for general international strings: just limit length to 15 characters total
+        return v.substring(0, 15); 
+      }
 
       let digits = v.replace(/\D/g, '');
+
+      // Standardize input prefix to 92
       if (digits.startsWith('03')) digits = '92' + digits.substring(1);
-      if (!digits.startsWith('92')) digits = '92' + digits;
-      
-      digits = digits.substring(0, 12); // Limit to standard count
+      if (digits.startsWith('3')) digits = '92' + digits;
+      if (!digits.startsWith('92') && digits.length > 0) digits = '92' + digits;
+
+      // Absolute limit to standard PK number length (92 + 10 digits = 12 total digits max)
+      digits = digits.substring(0, 12); 
 
       if (digits.length > 5) {
         return `+${digits.substring(0, 2)} ${digits.substring(2, 5)} ${digits.substring(5)}`;
@@ -103,14 +116,14 @@ const Valify = {
       return digits.length > 0 ? `+${digits}` : '';
     },
 
-    // Formats credit card text into 4-digit numeric chunks (XXXX XXXX XXXX XXXX)
+    // Formats credit card text into 4-digit groups, strictly capped at 16 digits
     creditCard: (value) => {
       let v = String(value).replace(/\D/g, '').substring(0, 16);
       let matches = v.match(/\d{1,4}/g);
       return matches ? matches.join(' ') : v;
     },
 
-    // Formats numbers automatically to raw digits only
+    // Blocks non-numeric keys completely for general numeric setups
     numericOnly: (value) => {
       return String(value).replace(/\D/g, '');
     }
