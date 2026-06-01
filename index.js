@@ -23,13 +23,10 @@ const Valify = {
   },
 
   // 3. Regional & Input Validations
-  // CNIC Format: 5 digits, hyphen, 7 digits, hyphen, 1 digit (e.g., 42101-1234567-1)
   cnic: (value) => {
     const regex = /^\d{5}-\d{7}-\d{1}$/;
     return regex.test(String(value));
   },
-
-  // Phone Number Format: Supports standard local formats, spaces, dashes, or global E.164 (+1234567890)
   phone: (value) => {
     const regex = /^\+?[0-9\s\-()]{7,15}$/;
     return regex.test(String(value).trim());
@@ -52,7 +49,6 @@ const Valify = {
     const d = new Date(value);
     return d instanceof Date && !isNaN(d) && d < new Date();
   },
-  // Date Picker Range Validation (Ensures a start date picker is before an end date picker)
   dateRange: (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -91,8 +87,7 @@ const Valify = {
   }
 };
 
+// Expose directly to the browser window globally
 if (typeof window !== 'undefined') {
   window.Valify = Valify;
 }
-
-export default Valify;
