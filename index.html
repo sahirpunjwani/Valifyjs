@@ -3,111 +3,368 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ValifyJS — Lightweight Validation Library</title>
+  <title>Valifyjs — Client-side Validation Library</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header>
-    <h1>🛡️ ValifyJS</h1>
-    <p>A zero-dependency, ultra-lightweight validation library for modern web apps.</p>
-    <div class="cdn-box">
-      <code>&lt;script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/valify-js/dist/index.umd.js"&gt;&lt;/script&gt;</code>
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="#" class="logo">Valifyjs<span>.js</span></a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#usage">Usage</a></li>
+        <li><a href="#api">API Reference</a></li>
+      </ul>
+      <a href="https://github.com/sahirpunjwani/Valifyjs" class="btn btn-outline" target="_blank">GitHub</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="badge">v1.0.0 — open source</div>
+      <h1 class="hero-title">Valify<span>.js</span></h1>
+      <p class="hero-subtitle">A zero-dependency, ultra-lightweight JavaScript validation library for everything. Dates, times, CNIC, passwords, and forms—all in one file.</p>
+      <div class="hero-actions">
+        <a href="#usage" class="btn btn-primary">Get Started</a>
+        <a href="https://github.com/sahirpunjwani/Valifyjs" class="btn btn-secondary" target="_blank">View on GitHub</a>
+      </div>
     </div>
   </header>
 
-  <main class="container">
-    <h2>Interactive Playground</h2>
-    <p>Test out the validation rules live below:</p>
+  <section class="cdn-section" id="usage">
+    <div class="container">
+      <div class="cdn-grid">
+        <div class="cdn-card">
+          <div class="cdn-header">
+            <span class="file-icon">JS</span>
+            <span class="file-name">index.js</span>
+            <span class="badge-tag">CDN</span>
+          </div>
+          <div class="cdn-body">
+            <p class="cdn-url-text">cdn.jsdelivr.net/gh/sahirpunjwani/Valifyjs@main/index.js</p>
+            <pre><code>&lt;!-- via CDN script tag --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/sahirpunjwani/Valifyjs@main/index.js"&gt;&lt;/script&gt;
 
-    <div class="demo-grid">
-      <div class="card">
-        <h3>CNIC Validation</h3>
-        <input type="text" id="cnicInput" placeholder="42101-1234567-1">
-        <button onclick="testValidation('cnic', 'cnicInput')">Validate CNIC</button>
-        <span class="result" id="cnicResult"></span>
-      </div>
-
-      <div class="card">
-        <h3>Phone Number</h3>
-        <input type="text" id="phoneInput" placeholder="+92 300 1234567">
-        <button onclick="testValidation('phone', 'phoneInput')">Validate Phone</button>
-        <span class="result" id="phoneResult"></span>
-      </div>
-
-      <div class="card">
-        <h3>Date Picker Range</h3>
-        <div style="display: flex; gap: 0.5rem;">
-          <input type="date" id="startDatePicker" title="Start Date">
-          <input type="date" id="endDatePicker" title="End Date">
+&lt;!-- access globally via window.Valify --&gt;
+&lt;script&gt;
+  const isValid = Valify.cnic("42101-1234567-1");
+  console.log(isValid); // true
+&lt;/script&gt;</code></pre>
+          </div>
         </div>
-        <button onclick="testDateRangeValidation()">Validate Date Order</button>
-        <span class="result" id="dateRangeResult"></span>
       </div>
 
-      <div class="card">
-        <h3>Email Validation</h3>
-        <input type="text" id="emailInput" placeholder="test@example.com">
-        <button onclick="testValidation('email', 'emailInput')">Validate Email</button>
-        <span class="result" id="emailResult"></span>
-      </div>
-
-      <div class="card">
-        <h3>24-Hour Time (HH:MM)</h3>
-        <input type="text" id="timeInput" placeholder="23:45">
-        <button onclick="testValidation('time24', 'timeInput')">Validate Time</button>
-        <span class="result" id="timeResult"></span>
-      </div>
-
-      <div class="card">
-        <h3>Strong Password</h3>
-        <input type="password" id="passwordInput" placeholder="••••••••">
-        <button onclick="testValidation('strongPassword', 'passwordInput')">Validate Security</button>
-        <span class="result" id="passwordResult"></span>
+      <div class="stats-row">
+        <div class="stat-box">
+          <h3>6 Modules</h3>
+          <p>in one ecosystem</p>
+        </div>
+        <div class="stat-box">
+          <h3>~4kb</h3>
+          <p>unminified file size</p>
+        </div>
+        <div class="stat-box">
+          <h3>0</h3>
+          <p>third-party dependencies</p>
+        </div>
+        <div class="stat-box">
+          <h3>MIT</h3>
+          <p>free open-source license</p>
+        </div>
       </div>
     </div>
-  </main>
+  </section>
 
-  <script type="module">
-    import Valify from './src/index.js';
-    window.Valify = Valify; 
-  </script>
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tagline">What's Inside</p>
+        <h2>Everything you need</h2>
+        <p class="section-desc">No dependencies. No bloat. Just a single clean JS file equipped with robust validation parameters.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🇵🇰</div>
+          <h3>CNIC Validation</h3>
+          <p>Pattern validation for Pakistani Identity Cards (5 digits, hyphen, 7 digits, hyphen, 1 digit) built using fast regular expressions.</p>
+          <div class="live-demo">
+            <input type="text" id="cnicIn" placeholder="42101-1234567-1">
+            <button onclick="runTest('cnic', 'cnicIn')">Test</button>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📞</div>
+          <h3>Phone Numbers</h3>
+          <p>Flexible evaluation supporting regional spacings, dash separators, bracket structures, and standardized global E.164 (+123...) formats.</p>
+          <div class="live-demo">
+            <input type="text" id="phoneIn" placeholder="+92 300 1234567">
+            <button onclick="runTest('phone', 'phoneIn')">Test</button>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📅</div>
+          <h3>Date Range & Picker</h3>
+          <p>Evaluate form pickers down to the chronological timeline. Ensures your reservation start date starts before an ending date.</p>
+          <div class="live-demo picker-demo">
+            <input type="date" id="startPick">
+            <input type="date" id="endPick">
+            <button onclick="runRangeTest()">Test</button>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔐</div>
+          <h3>Strong Passwords</h3>
+          <p>Enforce elite validation policies requiring at least 8 elements comprising uppercase letters, lowercase, numbers, and symbols.</p>
+          <div class="live-demo">
+            <input type="password" id="passIn" placeholder="••••••••">
+            <button onclick="runTest('strongPassword', 'passIn')">Test</button>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">💳</div>
+          <h3>Credit Cards</h3>
+          <p>Native mathematical parsing powered by the Luhn Algorithm checksum to authenticate card numbers before hitting gateway APIs.</p>
+          <div class="live-demo">
+            <input type="text" id="cardIn" placeholder="4532 7100 1234 5678">
+            <button onclick="runTest('creditCard', 'cardIn')">Test</button>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🕒</div>
+          <h3>Time Configurations</h3>
+          <p>Validates strict 24-hour schedules (HH:MM / HH:MM:SS) alongside standard 12-hour AM/PM string formats seamlessly.</p>
+          <div class="live-demo">
+            <input type="text" id="timeIn" placeholder="23:45 / 11:15 PM">
+            <button onclick="runTimeTest()">Test</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="code-examples-section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tagline">Code Examples</p>
+        <h2>Quick Start Samples</h2>
+        <p class="section-desc">Clean snippets showcasing implementation options inside forms or application scopes.</p>
+      </div>
+
+      <div class="code-box-wrapper">
+        <div class="code-nav">
+          <button class="code-tab active" onclick="switchCode(event, 'ex-basics')">Form Basics</button>
+          <button class="code-tab" onclick="switchCode(event, 'ex-dates')">Dates & Chronology</button>
+          <button class="code-tab" onclick="switchCode(event, 'ex-finance')">Regional & Finance</button>
+        </div>
+        <div class="code-content">
+          <pre id="ex-basics" class="code-block active"><code>// Validating standard required text strings and email inputs
+if (!Valify.required(emailInput)) {
+  showError("Field is mandatory");
+}
+
+if (!Valify.email(emailInput)) {
+  showError("Please enter a structured, authentic email address");
+}
+
+// Length properties
+Valify.minLength("hello", 3); // true
+Valify.maxLength("hello", 3); // false</code></pre>
+          <pre id="ex-dates" class="code-block"><code>// Validating chronologies and ranges
+const checkIn = "2026-06-01";
+const checkOut = "2026-06-05";
+
+if (!Valify.dateRange(checkIn, checkOut)) {
+  console.error("Check-out cannot occur before check-in date!");
+}
+
+// Check relative bounds
+Valify.futureDate("2030-01-01"); // true
+Valify.pastDate("1999-12-31");   // true</code></pre>
+          <pre id="ex-finance" class="code-block"><code>// Specialized card structures and localized checks
+const localCnic = "42101-1234567-1";
+Valify.cnic(localCnic); // true
+
+// Verify phone structures
+Valify.phone("+923001234567"); // true
+
+// Evaluate card formats via the Luhn Algorithm before API checkout
+if (Valify.creditCard("49927398716")) {
+  proceedToCheckout();
+}</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="api-section" id="api">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tagline">Reference</p>
+        <h2>Full API Blueprint</h2>
+        <p class="section-desc">An extensive dictionary of functions, matching inputs, and returned outputs.</p>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Method Name</th>
+              <th>Arguments Taken</th>
+              <th>Description Check</th>
+              <th>Returns</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>.required(val)</code></td>
+              <td><code>value</code> (any)</td>
+              <td>Verifies field is not undefined, null, or empty whitespace.</td>
+              <td>boolean</td>
+            </tr>
+            <tr>
+              <td><code>.email(val)</code></td>
+              <td><code>value</code> (string)</td>
+              <td>Matches input text structure against verified email patterns.</td>
+              <td>boolean</td>
+            </tr>
+            <tr>
+              <td><code>.url(val)</code></td>
+              <td><code>value</code> (string)</td>
+              <td>Safely parses string against browser native URL constructors.</td>
+              <td>boolean</td>
+            </tr>
+            <tr>
+              <td><code>.cnic(val)</code></td>
+              <td><code>value</code> (string)</td>
+              <td>Checks for exact Pakistani format: 55555-5555555-5.</td>
+              <td>boolean</td>
+            </tr>
+            <tr>
+              <td><code>.phone(val)</code></td>
+              <td><code>value</code> (string)</td>
+              <td>Evaluates valid local parameters and global international formats.</td>
+              <td>boolean</td>
+            </tr>
+            <tr>
+              <td><code>.number(val)</code></td>
+              <td><code>value</code> (num)</td>
+              <td>Confirms variable is structural digits and excludes NaN loops.</td>
+              <td>boolean</td>
+            </tr>
+            <tr>
+              <td><code>.range(val, min, max)</code></td>
+              <td><code>val, min, max</code> (num)</td>
+              <td>Ensures input number values are sequentially bounded.</td>
+              <td>boolean</td>
+            </tr>
+            <tr>
+              <td><code>.date(val)</code></td>
+              <td><code>value</code> (string/date)</td>
+              <td>Validates if string translates into standard browser calendar records.</td>
+              <td>boolean</td>
+            </tr>
+            <tr>
+              <td><code>.futureDate(val)</code></td>
+              <td><code>value</code> (string/date)</td>
+              <td>Verifies timestamp occurs past the current local clock tick.</td>
+              <td>boolean</td>
+            </tr>
+            <tr>
+              <td><code>.pastDate(val)</code></td>
+              <td><code>value</code> (string/date)</td>
+              <td>Verifies input target represents historical timestamps.</td>
+              <td>boolean</td>
+            </tr>
+            <tr>
+              <td><code>.dateRange(start, end)</code></td>
+              <td><code>start, end</code> (string)</td>
+              <td>Confirms start picker is chronological before the ending date.</td>
+              <td>boolean</td>
+            </tr>
+            <tr>
+              <td><code>.time24(val)</code></td>
+              <td><code>value</code> (string)</td>
+              <td>Tests 24-hour notations up to 23:59 or 23:59:00.</td>
+              <td>boolean</td>
+            </tr>
+            <tr>
+              <td><code>.time12(val)</code></td>
+              <td><code>value</code> (string)</td>
+              <td>Requires structural standard AM/PM indicators (e.g. 11:30 AM).</td>
+              <td>boolean</td>
+            </tr>
+            <tr>
+              <td><code>.strongPassword(val)</code></td>
+              <td><code>value</code> (string)</td>
+              <td>Checks min 8 chars with 1 upper, 1 lower, 1 digit, 1 symbol.</td>
+              <td>boolean</td>
+            </tr>
+            <tr>
+              <td><code>.creditCard(val)</code></td>
+              <td><code>value</code> (string/num)</td>
+              <td>Evaluates strict mathematical legitimacy via Luhn algorithms.</td>
+              <td>boolean</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Built by <a href="https://github.com/sahirpunjwani" target="_blank">sahirpunjwani</a> — MIT License</p>
+    <div class="footer-links">
+      <a href="https://github.com/sahirpunjwani/Valifyjs" target="_blank">github</a> · 
+      <a href="#features">playground</a>
+    </div>
+  </footer>
+
+  <script src="index.js"></script>
 
   <script>
-    // Standard test wrapper for single input methods
-    function testValidation(method, inputId) {
-      const value = document.getElementById(inputId).value;
-      const resultEl = document.getElementById(inputId.replace('Input', 'Result'));
-      
-      const isValid = window.Valify[method](value);
-      renderUIFeedback(resultEl, isValid);
-    }
-
-    // Special wrapper logic for the picker validation
-    function testDateRangeValidation() {
-      const start = document.getElementById('startDatePicker').value;
-      const end = document.getElementById('endDatePicker').value;
-      const resultEl = document.getElementById('dateRangeResult');
-
-      if(!start || !end) {
-        renderUIFeedback(resultEl, false);
-        resultEl.textContent = "✗ Fill both fields";
-        return;
-      }
-
-      const isValid = window.Valify.dateRange(start, end);
-      renderUIFeedback(resultEl, isValid);
-      if(isValid) resultEl.textContent = "✓ Chronological Order Valid";
-    }
-
-    function renderUIFeedback(element, isValid) {
-      if (isValid) {
-        element.textContent = "✓ Valid";
-        element.className = "result success";
+    function showFeedback(inputElement, isValid) {
+      if(isValid) {
+        inputElement.style.borderColor = "#10b981";
+        inputElement.style.boxShadow = "0 0 0 3px rgba(16, 185, 129, 0.15)";
       } else {
-        element.textContent = "✗ Invalid";
-        element.className = "result error";
+        inputElement.style.borderColor = "#ef4444";
+        inputElement.style.boxShadow = "0 0 0 3px rgba(239, 68, 68, 0.15)";
       }
+    }
+
+    function runTest(method, inputId) {
+      const el = document.getElementById(inputId);
+      const res = window.Valify[method](el.value);
+      showFeedback(el, res);
+    }
+
+    function runRangeTest() {
+      const startEl = document.getElementById('startPick');
+      const endEl = document.getElementById('endPick');
+      const res = window.Valify.dateRange(startEl.value, endEl.value);
+      showFeedback(startEl, res);
+      showFeedback(endEl, res);
+    }
+
+    function runTimeTest() {
+      const el = document.getElementById('timeIn');
+      const val = el.value;
+      const res = window.Valify.time24(val) || window.Valify.time12(val);
+      showFeedback(el, res);
+    }
+
+    function switchCode(event, blockId) {
+      document.querySelectorAll('.code-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.code-block').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      document.getElementById(blockId).classList.add('active');
     }
   </script>
 </body>
