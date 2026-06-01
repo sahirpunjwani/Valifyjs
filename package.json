@@ -1,0 +1,29 @@
+{
+  "name": "valify-js",
+  "version": "1.0.0",
+  "description": "A lightweight, zero-dependency validation library for everything.",
+  "main": "dist/index.js",
+  "modern": "dist/index.modern.js",
+  "module": "dist/index.module.js",
+  "unpkg": "dist/index.umd.js",
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sahirpunjwani/valify-js.git"
+  },
+  "keywords": [
+    "validation",
+    "validator",
+    "cdn",
+    "date-validation",
+    "email-validator"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "microbundle": "^0.15.1"
+  }
+}
