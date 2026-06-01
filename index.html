@@ -87,7 +87,7 @@
         <p class="section-desc">Type directly into the fields below. The library will auto-format your string layout and validate it in real time (Green = Valid, Red = Invalid).</p>
       </div>
 
-      <div class="features-grid">
+     <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon">🇵🇰</div>
           <h3>CNIC Validation & Format</h3>
@@ -116,6 +116,33 @@
           </div>
         </div>
 
+        <div class="feature-card">
+          <div class="feature-icon">🔐</div>
+          <h3>Strong Passwords</h3>
+          <p>Enforce elite validation policies requiring at least 8 elements comprising uppercase letters, lowercase, numbers, and symbols.</p>
+          <div class="live-demo">
+            <input type="password" id="passIn" placeholder="••••••••" oninput="runTest('strongPassword', 'passIn')">
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">💳</div>
+          <h3>Credit Cards</h3>
+          <p>Native mathematical parsing powered by the Luhn Algorithm checksum. Spaces out input digits into neat chunks of four elements.</p>
+          <div class="live-demo">
+            <input type="text" id="cardIn" placeholder="4532 7100 1234 5678" oninput="this.value = Valify.format.creditCard(this.value); runTest('creditCard', 'cardIn')">
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🕒</div>
+          <h3>Time Configurations</h3>
+          <p>Validates strict 24-hour schedules (HH:MM / HH:MM:SS) alongside standard 12-hour AM/PM string formats seamlessly.</p>
+          <div class="live-demo">
+            <input type="text" id="timeIn" placeholder="23:45 / 11:15 PM" oninput="runTimeTest()">
+          </div>
+        </div>
+      </div>
         <div class="feature-card">
           <div class="feature-icon">🔐</div>
           <h3>Strong Passwords</h3>
