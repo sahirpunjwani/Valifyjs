@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ValifyJS — Lightweight Validation Library</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>🛡️ ValifyJS</h1>
+    <p>A zero-dependency, ultra-lightweight validation library for modern web apps.</p>
+    <div class="cdn-box">
+      <code>&lt;script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/valify-js/dist/index.umd.js"&gt;&lt;/script&gt;</code>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Interactive Playground</h2>
+    <p>Test out the validation rules live below:</p>
+
+    <div class="demo-grid">
+      <div class="card">
+        <h3>Email Validation</h3>
+        <input type="text" id="emailInput" placeholder="test@example.com">
+        <button onclick="testValidation('email', 'emailInput')">Validate</button>
+        <span class="result" id="emailResult"></span>
+      </div>
+
+      <div class="card">
+        <h3>Future Date Validation</h3>
+        <input type="date" id="dateInput">
+        <button onclick="testValidation('futureDate', 'dateInput')">Validate Future</button>
+        <span class="result" id="dateResult"></span>
+      </div>
+
+      <div class="card">
+        <h3>24-Hour Time (HH:MM)</h3>
+        <input type="text" id="timeInput" placeholder="23:45">
+        <button onclick="testValidation('time24', 'timeInput')">Validate Time</button>
+        <span class="result" id="timeResult"></span>
+      </div>
+
+      <div class="card">
+        <h3>Strong Password</h3>
+        <input type="password" id="passwordInput" placeholder="••••••••">
+        <button onclick="testValidation('strongPassword', 'passwordInput')">Validate Security</button>
+        <span class="result" id="passwordResult"></span>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    import Valify from './src/index.js';
+    window.Valify = Valify; 
+  </script>
+
+  <script>
+    function testValidation(method, inputId) {
+      const value = document.getElementById(inputId).value;
+      const resultEl = document.getElementById(inputId.replace('Input', 'Result'));
+      
+      const isValid = window.Valify[method](value);
+
+      if (isValid) {
+        resultEl.textContent = "✓ Valid";
+        resultEl.className = "result success";
+      } else {
+        resultEl.textContent = "✗ Invalid";
+        resultEl.className = "result error";
+      }
+    }
+  </script>
+</body>
+</html>
