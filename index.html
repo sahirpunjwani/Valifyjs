@@ -22,17 +22,34 @@
 
     <div class="demo-grid">
       <div class="card">
-        <h3>Email Validation</h3>
-        <input type="text" id="emailInput" placeholder="test@example.com">
-        <button onclick="testValidation('email', 'emailInput')">Validate</button>
-        <span class="result" id="emailResult"></span>
+        <h3>CNIC Validation</h3>
+        <input type="text" id="cnicInput" placeholder="42101-1234567-1">
+        <button onclick="testValidation('cnic', 'cnicInput')">Validate CNIC</button>
+        <span class="result" id="cnicResult"></span>
       </div>
 
       <div class="card">
-        <h3>Future Date Validation</h3>
-        <input type="date" id="dateInput">
-        <button onclick="testValidation('futureDate', 'dateInput')">Validate Future</button>
-        <span class="result" id="dateResult"></span>
+        <h3>Phone Number</h3>
+        <input type="text" id="phoneInput" placeholder="+92 300 1234567">
+        <button onclick="testValidation('phone', 'phoneInput')">Validate Phone</button>
+        <span class="result" id="phoneResult"></span>
+      </div>
+
+      <div class="card">
+        <h3>Date Picker Range</h3>
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="date" id="startDatePicker" title="Start Date">
+          <input type="date" id="endDatePicker" title="End Date">
+        </div>
+        <button onclick="testDateRangeValidation()">Validate Date Order</button>
+        <span class="result" id="dateRangeResult"></span>
+      </div>
+
+      <div class="card">
+        <h3>Email Validation</h3>
+        <input type="text" id="emailInput" placeholder="test@example.com">
+        <button onclick="testValidation('email', 'emailInput')">Validate Email</button>
+        <span class="result" id="emailResult"></span>
       </div>
 
       <div class="card">
@@ -57,18 +74,39 @@
   </script>
 
   <script>
+    // Standard test wrapper for single input methods
     function testValidation(method, inputId) {
       const value = document.getElementById(inputId).value;
       const resultEl = document.getElementById(inputId.replace('Input', 'Result'));
       
       const isValid = window.Valify[method](value);
+      renderUIFeedback(resultEl, isValid);
+    }
 
+    // Special wrapper logic for the picker validation
+    function testDateRangeValidation() {
+      const start = document.getElementById('startDatePicker').value;
+      const end = document.getElementById('endDatePicker').value;
+      const resultEl = document.getElementById('dateRangeResult');
+
+      if(!start || !end) {
+        renderUIFeedback(resultEl, false);
+        resultEl.textContent = "✗ Fill both fields";
+        return;
+      }
+
+      const isValid = window.Valify.dateRange(start, end);
+      renderUIFeedback(resultEl, isValid);
+      if(isValid) resultEl.textContent = "✓ Chronological Order Valid";
+    }
+
+    function renderUIFeedback(element, isValid) {
       if (isValid) {
-        resultEl.textContent = "✓ Valid";
-        resultEl.className = "result success";
+        element.textContent = "✓ Valid";
+        element.className = "result success";
       } else {
-        resultEl.textContent = "✗ Invalid";
-        resultEl.className = "result error";
+        element.textContent = "✗ Invalid";
+        element.className = "result error";
       }
     }
   </script>
