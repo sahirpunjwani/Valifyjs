@@ -344,27 +344,37 @@ if (Valify.creditCard("49927398716")) {
   <script src="index.js"></script>
 
   <script>
+    // Universal UI border feedback color engine
     function showFeedback(inputElement, isValid) {
-      if(inputElement.value.trim() === "") {
+      if (inputElement.value.trim() === "") {
         inputElement.style.borderColor = "var(--border)";
         inputElement.style.boxShadow = "none";
         return;
       }
-      if(isValid) {
-        inputElement.style.borderColor = "#10b981";
+      if (isValid) {
+        inputElement.style.borderColor = "#10b981"; // Success Green
         inputElement.style.boxShadow = "0 0 0 3px rgba(16, 185, 129, 0.15)";
       } else {
-        inputElement.style.borderColor = "#ef4444";
+        inputElement.style.borderColor = "#ef4444"; // Error Red
         inputElement.style.boxShadow = "0 0 0 3px rgba(239, 68, 68, 0.15)";
       }
     }
 
+    // Single unified test handler that references our library directly
     function runTest(method, inputId) {
       const el = document.getElementById(inputId);
       const res = window.Valify[method](el.value);
       showFeedback(el, res);
     }
 
+    // Handles the combined 12h/24h validation right from the library
+    function runTimeTest() {
+      const el = document.getElementById('timeIn');
+      const res = window.Valify.time24(el.value) || window.Valify.time12(el.value);
+      showFeedback(el, res);
+    }
+
+    // Double input target validation using our library's dateRange method
     function runRangeTest() {
       const startEl = document.getElementById('startPick');
       const endEl = document.getElementById('endPick');
@@ -373,13 +383,7 @@ if (Valify.creditCard("49927398716")) {
       showFeedback(endEl, res);
     }
 
-    function runTimeTest() {
-      const el = document.getElementById('timeIn');
-      const val = el.value;
-      const res = window.Valify.time24(val) || window.Valify.time12(val);
-      showFeedback(el, res);
-    }
-
+    // Documentation layout tab switching logic
     function switchCode(event, blockId) {
       document.querySelectorAll('.code-tab').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.code-block').forEach(b => b.classList.remove('active'));
