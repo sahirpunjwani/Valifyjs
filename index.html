@@ -5,6 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Valifyjs — Client-side Validation Library</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Inline additions to support new documentation layout components cleanly */
+    .docs-section {
+      padding: 80px 0;
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid var(--border, #252528);
+    }
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .docs-card {
+      background: var(--card-bg, #131314);
+      border: 1px solid var(--border, #252528);
+      border-radius: 12px;
+      padding: 24px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .docs-card:hover {
+      border-color: var(--accent, #c8f060);
+      transform: translateY(-2px);
+    }
+    .docs-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .docs-card p {
+      font-size: 14px;
+      color: #888888;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .docs-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .docs-list li {
+      font-size: 13px;
+      color: #888888;
+      margin-bottom: 8px;
+      position: relative;
+      padding-left: 14px;
+    }
+    .docs-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent, #c8f060);
+    }
+    .docs-list strong {
+      color: #ffffff;
+    }
+    .nav-links a.docs-highlight {
+      color: var(--accent, #c8f060) !important;
+      font-weight: 500;
+    }
+  </style>
 </head>
 <body>
 
@@ -15,6 +78,7 @@
         <li><a href="#features">Features</a></li>
         <li><a href="#usage">Usage</a></li>
         <li><a href="#api">API Reference</a></li>
+        <li><a href="#docs" class="docs-highlight">Docs</a></li>
       </ul>
       <a href="https://github.com/sahirpunjwani/Valifyjs" class="btn btn-outline" target="_blank">GitHub</a>
     </div>
@@ -44,7 +108,7 @@
           <div class="cdn-body">
             <p class="cdn-url-text">cdn.jsdelivr.net/gh/sahirpunjwani/Valifyjs@main/index.js</p>
             <pre><code>&lt;!-- via CDN script tag --&gt;
-&lt;script src="https://cdn.jsdelivr.net/gh/sahirpunjwani/Valifyjs@main/index.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/sahirpunjwani/Valifyjs@main/index.js"&gt;&lt;/script>
 
 &lt;!-- access globally via window.Valify --&gt;
 &lt;script&gt;
@@ -87,7 +151,7 @@
         <p class="section-desc">Type directly into the fields below. The library will auto-format your string layout and validate it in real time (Green = Valid, Red = Invalid).</p>
       </div>
 
-     <div class="features-grid">
+      <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon">🇵🇰</div>
           <h3>CNIC Validation & Format</h3>
@@ -116,33 +180,6 @@
           </div>
         </div>
 
-        <div class="feature-card">
-          <div class="feature-icon">🔐</div>
-          <h3>Strong Passwords</h3>
-          <p>Enforce elite validation policies requiring at least 8 elements comprising uppercase letters, lowercase, numbers, and symbols.</p>
-          <div class="live-demo">
-            <input type="password" id="passIn" placeholder="••••••••" oninput="runTest('strongPassword', 'passIn')">
-          </div>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">💳</div>
-          <h3>Credit Cards</h3>
-          <p>Native mathematical parsing powered by the Luhn Algorithm checksum. Spaces out input digits into neat chunks of four elements.</p>
-          <div class="live-demo">
-            <input type="text" id="cardIn" placeholder="4532 7100 1234 5678" oninput="this.value = Valify.format.creditCard(this.value); runTest('creditCard', 'cardIn')">
-          </div>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">🕒</div>
-          <h3>Time Configurations</h3>
-          <p>Validates strict 24-hour schedules (HH:MM / HH:MM:SS) alongside standard 12-hour AM/PM string formats seamlessly.</p>
-          <div class="live-demo">
-            <input type="text" id="timeIn" placeholder="23:45 / 11:15 PM" oninput="runTimeTest()">
-          </div>
-        </div>
-      </div>
         <div class="feature-card">
           <div class="feature-icon">🔐</div>
           <h3>Strong Passwords</h3>
@@ -356,6 +393,62 @@ if (Valify.creditCard("49927398716")) {
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section" id="docs">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tagline">Documentation</p>
+        <h2>Technical Architecture Guides</h2>
+        <p class="section-desc">Deep-dive structural architecture notes explaining regex optimizations, formatting patterns, and pipeline processing hooks inside Valify.js.</p>
+      </div>
+
+      <div class="docs-grid">
+        <div class="docs-card">
+          <h3>📦 1. Core Paradigm</h3>
+          <p>
+            <code>Valify.js</code> runs entirely on declarative validation models. Instead of initializing complex class schemas or long chain-link abstractions, it returns pure, deterministic booleans directly to programmatic check steps.
+          </p>
+          <ul class="docs-list">
+            <li><strong>Predictable:</strong> Safe to drop into conditional loops.</li>
+            <li><strong>Lightweight:</strong> Fits cleanly into performance-critical applications.</li>
+          </ul>
+        </div>
+
+        <div class="docs-card">
+          <h3>⚡ 2. Regular Expression Performance</h3>
+          <p>
+            The built-in matchers (like CNIC and Phone variables) are pre-compiled internally. This isolates evaluation pipelines from regex engine generation overhead during repetitive keydown event listeners.
+          </p>
+          <ul class="docs-list">
+            <li><strong>CNIC Layout:</strong> Maps precise capture structures across exact <code>5-7-1</code> string lengths.</li>
+            <li><strong>Sanitizer Filters:</strong> Strips invalid text out before running core rule evaluations.</li>
+          </ul>
+        </div>
+
+        <div class="docs-card">
+          <h3>🔄 3. Format vs Validate Pipelines</h3>
+          <p>
+            Valify keeps a clean separation between string-formatting layers and true state verification logic to prevent user confusion.
+          </p>
+          <ul class="docs-list">
+            <li><strong>Formatters:</strong> Add visual spacers (like spaces or hyphens) dynamically without altering raw underlying inputs.</li>
+            <li><strong>Validators:</strong> Check total mathematical accuracy, such as running numeric streams through the Luhn Algorithm.</li>
+          </ul>
+        </div>
+
+        <div class="docs-card">
+          <h3>⏰ 4. Date & Temporal Mechanics</h3>
+          <p>
+            Temporal validation goes beyond simple string matching by processing inputs directly through browser-native <code>Date.parse()</code> constructors.
+          </p>
+          <ul class="docs-list">
+            <li><strong>Safety Checks:</strong> Catches non-existent calendar inputs like February 31st automatically.</li>
+            <li><strong>Comparisons:</strong> Converts timezone offsets accurately to keep date bounds completely safe.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
