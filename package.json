@@ -1,6 +1,6 @@
 {
   "name": "valify-js",
-  "version": "1.0.0",
+  "version": "1.1.5",
   "description": "A lightweight, zero-dependency validation library for everything.",
   "main": "dist/index.js",
   "modern": "dist/index.modern.js",
